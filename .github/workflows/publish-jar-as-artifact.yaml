@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "{{ github.event.client_payload.base_branch }}"
 
-    # 1- Download source code from default branch
+    # 1 - Download source code from default branch
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.client_payload.base_branch }}
