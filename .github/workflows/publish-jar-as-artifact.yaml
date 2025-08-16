@@ -63,8 +63,8 @@ jobs:
         run: |
           ls -la ${{ github.workspace }}/target/
           SHA1=$(sha1sum ${{ github.workspace }}/target/$ARTIFACT_NAME | awk '{ print $1 }')
-          JSON="{\"message\": \"publish artifact\", \"artifact_name\": \"${{ env.ARTIFACT }}\", \"checksum\": \"$SHA1\"}"
-          echo JSON_PAYLOAD=$(printf '%s\n' "$JSON") >> $GITHUB_ENV
+          JSON="{\"message\": \"publish artifact\", \"artifact_name\": \"${ARTIFACT_NAME}\", \"checksum\": \"$SHA1\"}"
+          echo "JSON_PAYLOAD=$JSON" >> $GITHUB_ENV
 
       # 4 Call deploy-artifact.yaml
       - name: trigger deploy artifact
@@ -74,4 +74,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           event-type: deploy-artifact-event
-          client-payload: '{{fromJSON(env.JSON_PAYLOAD)}}'
+          client-payload: ${{ env.JSON_PAYLOAD }}
