@@ -64,7 +64,7 @@ jobs:
           ls -la ${{ github.workspace }}/target/
           SHA1=$(sha1sum ${{ github.workspace }}/target/$ARTIFACT_NAME | awk '{ print $1 }')
           JSON="{\"message\": \"publish artifact\", \"artifact_name\": \"${{ env.ARTIFACT }}\", \"checksum\": \"$SHA1\"}"
-          echo JSON_PAYLOAD=$(printf '%s\n' "JSON") >> $GITHUB_ENV
+          echo JSON_PAYLOAD=$(printf '%s\n' "$JSON") >> $GITHUB_ENV
 
       # 4 Call deploy-artifact.yaml
       - name: trigger deploy artifact
